@@ -19,7 +19,7 @@ public class VerbianDate
 
     public string ToString()
     {
-        string date = this.Day + MonthsName[Month-1] + this.Year;
+        string date = this.Day + " " + MonthsName[Month-1] + " " + this.Year;
         return date;
     }
 
