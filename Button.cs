@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Button : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -8,16 +9,15 @@ public class Button : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IP
 	public enum action	{
 		Menu, 
 		Recruit, ManaPlant, GoldMine, UpgradeMana, UpgradePower, UpgradeEmperor, UpgradeSpell, Attack, Retreat, Protect,
-		MusicOnOff, SoundsOnOff}
+		MusicOnOff, SoundsOnOff,
+        Battlefield
+    }
 	//public bool StopSound;
 	public float power;
 
-//--------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------//
 
-
-
-//--------------------------------------------------------------------------------------//
-	/*Kliknięcie myszą*/
+	/*Przycisnięcie myszy*/
 	public void OnPointerDown(PointerEventData data)
 	{
 		//if (StopSound) Source.Stop ();
@@ -27,50 +27,75 @@ public class Button : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IP
 		case action.Menu:
 			Speaker.Play (Speaker.SoundMenuClick);
 			break;
+
 		case action.Recruit:
-			Speaker.Play (Speaker.SoundMenuFanfare);
-			ValueBox.m.Amount += (ValueBox.hc.Gold/100);
-            ValueBox.hc.Gold %= 100;
+            Source.Stop();
+            if (ValueBox.sliderMagesRecruit.value > 0)
+			    Speaker.Play (Speaker.SoundMenuFanfare);
+            else
+                Speaker.Play(Speaker.SoundSpellFireballHit);
+
+            ValueBox.Mages += (int)(ValueBox.sliderMagesRecruit.value);
+            ValueBox.Gold -= (int)(SliderController.PriceNewMages((int)ValueBox.sliderMagesRecruit.value));
 			break;
+
+
+        case action.GoldMine:
+            Speaker.Play(Speaker.SoundGoldGathered);
+            ResetIdleMages();
+            ValueBox.sliderMagesGold.value = ValueBox.sliderMagesGold.maxValue = (float)ValueBox.Mages;
+            break;
+
 		case action.ManaPlant:
 			Speaker.Play (Speaker.SoundManaClick);
-			ValueBox.Mana += (int)power;
+            ResetIdleMages();
+            ValueBox.sliderMagesMana.value = ValueBox.sliderMagesMana.maxValue = (float)ValueBox.Mages;
 			break;
-		case action.GoldMine:
-			Speaker.Play (Speaker.SoundGoldGathered);
-            ValueBox.Gold += (int)power;
-			break;
+
+        case action.Battlefield:
+            Speaker.Play(Speaker.SoundGoldGathered);
+            ResetIdleMages();
+            ValueBox.sliderMagesWar.value = ValueBox.sliderMagesWar.maxValue = (float)ValueBox.Mages;
+            break;
+
+
 		case action.UpgradeMana:
 			Speaker.Play (Speaker.SoundManaGathered);
 			ValueBox.Mana = 0;
 			break;
+
 		case action.UpgradePower:
 			Speaker.Play (Speaker.SoundManaUpgrade);
 			break;
+
 		case action.UpgradeEmperor:
 			Speaker.Play (Speaker.SoundLoreClose);
 			break;
+
 		case action.UpgradeSpell:
 			Speaker.Play (Speaker.SoundSpell_UPGRADE);
 			break;
+
 		case action.Attack:
 			Speaker.Play (Speaker.SoundWhip);
 			ValueBox.Gold += (ValueBox.Mana * 100);
 			ValueBox.Mana = 0;
-            ValueBox.mAmount -= (int)power;
+            ValueBox.Mages -= (int)power;
 			break;
+
 		case action.Retreat:
 			Speaker.Play (Speaker.SoundSqueeze);
-
 			break;
+
 		case action.Protect:
 			Speaker.Play (Speaker.SoundSpellFireballHit);
-            ValueBox.mAmount -= (int)power;
+            ValueBox.Mages -= (int)power;
 			break;
 		
 		case action.MusicOnOff:
 			MusicSource.mute = !MusicSource.mute;
 			break;
+
 		case action.SoundsOnOff:
 			Source.mute = !Source.mute;
 			break;
@@ -82,17 +107,21 @@ public class Button : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IP
 	{
 
 	}
-	
+
+	/*Standardowe kliknięcie*/
 	public void OnPointerClick(PointerEventData data)
 	{
 		
 	}
-	
+
+	/*Najechanie myszą*/
 	public void OnPointerEnter(PointerEventData data)
 	{
 		Speaker.Play (Speaker.SoundMenuHover);
 
 	}
+
+	/*Zjechanie myszą z obiektu*/
 	public void OnPointerExit(PointerEventData data)
 	{
 
@@ -116,4 +145,16 @@ public class Button : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IP
 
 		//Values = GameObject.FindGameObjectWithTag("CodeCube").GetComponent<ValueBox>();
 	}
+
+
+    /////////////////////////////FUNCTIONS//////////////////////////////////////////////////////////////////FUNCTIONS/////////////////////////////////////
+    /////////////////////////////FUNCTIONS//////////////////////////////////////////////////////////////////FUNCTIONS/////////////////////////////////////
+    /////////////////////////////FUNCTIONS//////////////////////////////////////////////////////////////////FUNCTIONS/////////////////////////////////////
+
+    void ResetIdleMages()
+    {
+        ValueBox.sliderMagesGold.value = ValueBox.sliderMagesMana.value = ValueBox.sliderMagesWar.value = 0f;
+        ValueBox.MagesInGoldMine = ValueBox.MagesInManaCrystal = ValueBox.MagesAtWar = 0;
+        ValueBox.CountIdleMages();
+    }
 }

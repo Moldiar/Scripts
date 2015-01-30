@@ -18,18 +18,25 @@ public class SoundList : MonoBehaviour
 		SoundGoldGathered,
 	 	SoundManaGathered,
 		SoundManaUpgrade,
+
 	 	SoundSpell_UPGRADE,
+		
 		SoundSpellFireballHit,
 		SoundSpellFireballCast,
 		SoundSpellBigFireball,
 		SoundSpellThunder,
 		SoundSpellEarthquake,
+
 		SoundLoreNext,
 		SoundLoreClose,
 		SoundSlap,
 		SoundWhip,
 		SoundGoldCoinFlip,
-		SoundSqueeze;
+		SoundSqueeze
+
+
+
+			;
 
 	public void Play(AudioClip Clip)
 	{
