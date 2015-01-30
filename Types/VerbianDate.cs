@@ -17,6 +17,28 @@ public class VerbianDate
         this.Day = day;
     }
 
+    float timer = 0;
+    public void Update()
+    {
+        timer += Time.deltaTime;
+        if (timer > 0.07)
+        {
+            Day++;
+            timer = 0;
+        }
+
+        if (Day > 20)
+        {
+            Day = 1;
+            Month++;
+        }
+        if (Month > 20)
+        {
+            Month = 1;
+            Year++;
+        }
+    }
+
     public string ToString()
     {
         string date = this.Day + " " + MonthsName[Month-1] + " " + this.Year;

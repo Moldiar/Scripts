@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 
-    class Spells
+    public class Spells
     {
         public Spell Fireball { get; set; }
         public Spell FireballRain { get; set; }

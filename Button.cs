@@ -10,7 +10,7 @@ public class Button : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IP
 		Menu, 
 		Recruit, ManaPlant, GoldMine, UpgradeMana, UpgradePower, UpgradeEmperor, UpgradeSpell, Attack, Retreat, Protect,
 		MusicOnOff, SoundsOnOff,
-        Battlefield
+        BattlefieldAll, BattlefieldIdle, ManaPlantAll, ManaPlantIdle, GoldMineAll, GoldMineIdle, RecruitMax
     }
 	//public bool StopSound;
 	public float power;
@@ -38,21 +38,42 @@ public class Button : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IP
             ValueBox.mages.Amount += (int)(ValueBox.sliderMagesRecruit.value);
             ValueBox.gold.Amount -= (int)(ValueBox.mages.PriceNewMages((int)ValueBox.sliderMagesRecruit.value));
 			break;
+        case action.RecruitMax:
+            Source.Stop();
+            if (ValueBox.sliderMagesRecruit.maxValue > 0)
+                Speaker.Play(Speaker.SoundMenuFanfare);
+            else
+                Speaker.Play(Speaker.SoundSpellFireballHit);
 
+            ValueBox.mages.Amount += (int)(ValueBox.sliderMagesRecruit.maxValue);
+            ValueBox.gold.Amount -= (int)(ValueBox.mages.PriceNewMages((int)ValueBox.sliderMagesRecruit.maxValue));
+            break;
 
-        case action.GoldMine:
+        case action.GoldMineIdle:
+            Speaker.Play(Speaker.SoundGoldGathered);
+            ValueBox.sliderMagesGold.value = ValueBox.sliderMagesGold.maxValue;
+            break;
+        case action.GoldMineAll:
             Speaker.Play(Speaker.SoundGoldGathered);
             ResetIdleMages();
             ValueBox.sliderMagesGold.value = ValueBox.sliderMagesGold.maxValue = (float)ValueBox.mages.Amount;
             break;
 
-		case action.ManaPlant:
+        case action.ManaPlantIdle:
+            Speaker.Play(Speaker.SoundManaClick);
+            ValueBox.sliderMagesMana.value = ValueBox.sliderMagesMana.maxValue;
+            break;
+		case action.ManaPlantAll:
 			Speaker.Play (Speaker.SoundManaClick);
             ResetIdleMages();
             ValueBox.sliderMagesMana.value = ValueBox.sliderMagesMana.maxValue = (float)ValueBox.mages.Amount;
 			break;
 
-        case action.Battlefield:
+        case action.BattlefieldIdle:
+            Speaker.Play(Speaker.SoundGoldGathered);
+            ValueBox.sliderMagesWar.value = ValueBox.sliderMagesWar.maxValue;
+            break;
+        case action.BattlefieldAll:
             Speaker.Play(Speaker.SoundGoldGathered);
             ResetIdleMages();
             ValueBox.sliderMagesWar.value = ValueBox.sliderMagesWar.maxValue = (float)ValueBox.mages.Amount;

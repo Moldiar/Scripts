@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System;
 using UnityEngine.UI;
+//using Assets.Scripts.Types;
 
 
 
@@ -41,14 +42,14 @@ public class ValueBox : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////
 
     public static VerbianDate date = new VerbianDate(Year, Month, Day);
-    public static Mages mages = new Mages(startMages, startMagesCostModifier, 0, 0, 0);
+    public static Mages mages = new Mages(1, startMages, startMagesCostModifier, 0, 0, 0);
     public static Gold gold = new Gold(startGold, startGPS);
     public static Mana mana = new Mana(startMana, startMPS);
-    //public static Spells spells;
-    //public static Cities cities;
-    //public static Upgrades upgrades;
-    //public static Constructions constructions;
-    //public static Emperor emperor;
+    public static Spells spells;
+    public static Cities cities;
+    public static Upgrades upgrades;
+    public static Constructions constructions;
+    public static Emperor emperor;
 
     ////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// References ////////////////////////////////
@@ -73,6 +74,7 @@ public class ValueBox : MonoBehaviour {
         gold.Update();
         mana.Update();
         mages.Update();
+        date.Update();
 
 		timer += Time.deltaTime;
         if (timer > UpdateTime) 

@@ -14,6 +14,7 @@ public class SliderController : MonoBehaviour {
     InputField textField;
     float lastValue;
     public Text GoldenTextField;
+    public Text GoldenMaxTextField;
 
 	void Start () {
         slid = GetComponent<Slider>();
@@ -26,16 +27,21 @@ public class SliderController : MonoBehaviour {
         switch (SliderDestiny)
         {
             case slide.Recruit:
-                //slid.maxValue = (float)(int)(ValueBox.Gold / 100);
-                //slid.maxValue = Sn((int)ValueBox.Mages, (int)ValueBox.Mages+10);
                 slid.maxValue = (float)ValueBox.mages.MaxNewMages();
 
-                string number = ValueBox.mages.PriceNewMages((int)slid.value).ToString("#,#");
-                number = number.Replace(',', ' ');
-                if (slid.value == 0)
-                    number = "0";
+                string price = ValueBox.mages.PriceNewMages((int)slid.value).ToString("#,#");
+                price = price.Replace(',', ' ');
+                if (slid.value == 0) price = "0";
+                GoldenTextField.text = "You gonna pay: " + price + " gold";
 
-                GoldenTextField.text = "You gonna pay: " + number + " gold";
+                string maxPrice = ValueBox.mages.PriceNewMages((int)slid.maxValue).ToString("#,#");
+                maxPrice = maxPrice.Replace(',', ' ');
+                if (slid.maxValue == 0) maxPrice = "0";
+                string maxMages = slid.maxValue.ToString("#,#");
+                maxMages = maxMages.Replace(',', ' ');
+                if (slid.maxValue == 0) maxMages = "0";
+                GoldenMaxTextField.text = maxPrice + " gold for " + maxMages + " new mages";
+
                 break;
 
             case slide.ToGold:
