@@ -10,6 +10,7 @@ namespace Assets.Scripts.Types
         public int Level { get; set; }
         public string Type { get; set; }
         public int Dmg { get; set; }
+        public float Cooldown { get; set; }
 
         public Spell(int level, string type, int dmg)
         {
