@@ -19,7 +19,31 @@ public class VerbianDate
 
     public string ToString()
     {
-        string date = this.Day + " . " + this.Month + " . " +this.Year;
+        string date = this.Day + " . " + MonthsName[Month-1] + " . " + this.Year;
         return date;
     }
+
+    string[] MonthsName = {
+                              "Vesing",
+                              "Rilal",
+                              "Entheg",
+                              "Aracki",
+                              "Taiash",
+                              "Akrat",
+                              "Terler",
+                              "Rynur",
+                              "Sulint",
+                              "Tyela",
+
+                              "Imardi",
+                              "Belgaru",
+                              "Rath",
+                              "Yerig",
+                              "Rutas",
+                              "Nularn",
+                              "Ineund",
+                              "Masys",
+                              "Radest",
+                              "Olod"
+                          };
 }

@@ -28,34 +28,34 @@ public class SliderController : MonoBehaviour {
             case slide.Recruit:
                 //slid.maxValue = (float)(int)(ValueBox.Gold / 100);
                 //slid.maxValue = Sn((int)ValueBox.Mages, (int)ValueBox.Mages+10);
-                slid.maxValue = (float)MaxNewMages();
+                slid.maxValue = (float)ValueBox.mages.MaxNewMages();
 
-                string liczba = PriceNewMages((int)slid.value).ToString("#,#");
-                liczba = liczba.Replace(',', ' ');
+                string number = ValueBox.mages.PriceNewMages((int)slid.value).ToString("#,#");
+                number = number.Replace(',', ' ');
                 if (slid.value == 0)
-                    liczba = "0";
+                    number = "0";
 
-                GoldenTextField.text = "You gonna pay: " + liczba + " gold";
+                GoldenTextField.text = "You gonna pay: " + number + " gold";
                 break;
 
             case slide.ToGold:
                 
-                slid.maxValue = (float)(int)(ValueBox.MagesIdle + ValueBox.MagesInGoldMine);
-                ValueBox.MagesInGoldMine = (int)slid.value;
+                slid.maxValue = (float)(int)(ValueBox.mages.Idle + ValueBox.mages.inGold);
+                ValueBox.mages.inGold = (int)slid.value;
                 
                 break;
 
             case slide.ToMana:
-                
-                slid.maxValue = (float)(int)(ValueBox.MagesIdle + ValueBox.MagesInManaCrystal);
-                ValueBox.MagesInManaCrystal = (int)slid.value;
+
+                slid.maxValue = (float)(int)(ValueBox.mages.Idle + ValueBox.mages.inMana);
+                ValueBox.mages.inMana = (int)slid.value;
 
                 break;
 
             case slide.ToWar:
                 
-                slid.maxValue = (float)(int)(ValueBox.MagesIdle + ValueBox.MagesAtWar);
-                ValueBox.MagesAtWar = (int)slid.value;
+                slid.maxValue = (float)(int)(ValueBox.mages.Idle + ValueBox.mages.inWar);
+                ValueBox.mages.inWar = (int)slid.value;
 
                 break;
         }

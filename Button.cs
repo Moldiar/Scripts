@@ -35,33 +35,33 @@ public class Button : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IP
             else
                 Speaker.Play(Speaker.SoundSpellFireballHit);
 
-            ValueBox.Mages += (int)(ValueBox.sliderMagesRecruit.value);
-            ValueBox.Gold -= (int)(SliderController.PriceNewMages((int)ValueBox.sliderMagesRecruit.value));
+            ValueBox.mages.Amount += (int)(ValueBox.sliderMagesRecruit.value);
+            ValueBox.gold.Amount -= (int)(ValueBox.mages.PriceNewMages((int)ValueBox.sliderMagesRecruit.value));
 			break;
 
 
         case action.GoldMine:
             Speaker.Play(Speaker.SoundGoldGathered);
             ResetIdleMages();
-            ValueBox.sliderMagesGold.value = ValueBox.sliderMagesGold.maxValue = (float)ValueBox.Mages;
+            ValueBox.sliderMagesGold.value = ValueBox.sliderMagesGold.maxValue = (float)ValueBox.mages.Amount;
             break;
 
 		case action.ManaPlant:
 			Speaker.Play (Speaker.SoundManaClick);
             ResetIdleMages();
-            ValueBox.sliderMagesMana.value = ValueBox.sliderMagesMana.maxValue = (float)ValueBox.Mages;
+            ValueBox.sliderMagesMana.value = ValueBox.sliderMagesMana.maxValue = (float)ValueBox.mages.Amount;
 			break;
 
         case action.Battlefield:
             Speaker.Play(Speaker.SoundGoldGathered);
             ResetIdleMages();
-            ValueBox.sliderMagesWar.value = ValueBox.sliderMagesWar.maxValue = (float)ValueBox.Mages;
+            ValueBox.sliderMagesWar.value = ValueBox.sliderMagesWar.maxValue = (float)ValueBox.mages.Amount;
             break;
 
 
 		case action.UpgradeMana:
 			Speaker.Play (Speaker.SoundManaGathered);
-			ValueBox.Mana = 0;
+			ValueBox.mana.Amount = 0;
 			break;
 
 		case action.UpgradePower:
@@ -78,9 +78,9 @@ public class Button : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IP
 
 		case action.Attack:
 			Speaker.Play (Speaker.SoundWhip);
-			ValueBox.Gold += (ValueBox.Mana * 100);
-			ValueBox.Mana = 0;
-            ValueBox.Mages -= (int)power;
+			ValueBox.gold.Amount += (ValueBox.mana.Amount * 100);
+			ValueBox.mana.Amount = 0;
+            ValueBox.mages.Amount -= (int)power;
 			break;
 
 		case action.Retreat:
@@ -89,7 +89,7 @@ public class Button : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IP
 
 		case action.Protect:
 			Speaker.Play (Speaker.SoundSpellFireballHit);
-            ValueBox.Mages -= (int)power;
+            ValueBox.mages.Amount -= (int)power;
 			break;
 		
 		case action.MusicOnOff:
@@ -154,7 +154,7 @@ public class Button : MonoBehaviour, IPointerClickHandler, IPointerUpHandler, IP
     void ResetIdleMages()
     {
         ValueBox.sliderMagesGold.value = ValueBox.sliderMagesMana.value = ValueBox.sliderMagesWar.value = 0f;
-        ValueBox.MagesInGoldMine = ValueBox.MagesInManaCrystal = ValueBox.MagesAtWar = 0;
-        ValueBox.CountIdleMages();
+        ValueBox.mages.inGold = ValueBox.mages.inMana = ValueBox.mages.inWar = 0;
+        ValueBox.mages.Update();
     }
 }
