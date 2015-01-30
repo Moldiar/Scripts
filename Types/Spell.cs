@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Scripts.Types
-{
     class Spell
     {
         public int Level { get; set; }
@@ -25,4 +23,4 @@ namespace Assets.Scripts.Types
             return x;
         }
     }
-}
+

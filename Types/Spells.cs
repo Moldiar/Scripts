@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Scripts.Types
-{
+
     class Spells
     {
         public Spell Fireball { get; set; }
@@ -20,4 +19,4 @@ namespace Assets.Scripts.Types
             this.Thunder = thunder;
         }
     }
-}
+
